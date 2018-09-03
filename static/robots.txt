@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abitindex.com/sitemap.xml

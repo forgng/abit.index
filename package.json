@@ -1,0 +1,32 @@
+{
+  "name": "abit-index",
+  "version": "1.0.0",
+  "description": "Nuxt.js project",
+  "author": "Gianluca Chiap <gianlucachiap@gmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": " NODE_ENV=production nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "5.3.1",
+    "@nuxtjs/google-analytics": "^2.0.2",
+    "@nuxtjs/proxy": "1.2.4",
+    "highcharts": "6.1.1",
+    "nuxt-edge": "^2.0.0-25597232.00ea579",
+    "socket.io-client": "2.1.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "8.2.1",
+    "eslint": "4.15.0",
+    "eslint-friendly-formatter": "3.0.0",
+    "eslint-loader": "1.7.1",
+    "eslint-plugin-vue": "4.0.0",
+    "node-sass": "4.9.0",
+    "sass-loader": "7.0.3"
+  }
+}
