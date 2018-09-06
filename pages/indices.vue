@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 import { IndexCard, ModalIndex, SearchBox } from '../components';
 import { convertToLocalTimezone } from '../components/helpers.js';
 
@@ -76,7 +76,7 @@ export default {
         lastTimestamp: data.abitindex.timestamp,
       };
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       return { error: true, indices: [], loading: false };
     }
   },
@@ -182,4 +182,3 @@ export default {
   position: absolute;
 }
 </style>
-

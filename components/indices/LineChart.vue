@@ -114,5 +114,3 @@ export default {
   transform: translate(90%, 0);
 }
 </style>
-
-

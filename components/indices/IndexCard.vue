@@ -49,17 +49,17 @@ export default {
     },
     valuesSelected() {
       const now = Date.now();
-      console.log('valuesSelected');
+      let oldTs;
       switch (this.selectedTimeframe) {
         case '1h':
-          const oneHourAgo = now - 60 * 60 * 1000;
-          return this.values.filter(el => el[0] >= oneHourAgo);
+          oldTs = now - 60 * 60 * 1000;
+          return this.values.filter(el => el[0] >= oldTs);
         case '1d':
-          const oneDayAgo = now - 60 * 60 * 24 * 1000;
-          return this.values.filter(el => el[0] >= oneDayAgo);
+          oldTs = now - 60 * 60 * 24 * 1000;
+          return this.values.filter(el => el[0] >= oldTs);
         case '7d':
-          const oneWeekAgo = now - 60 * 60 * 24 * 7 * 1000;
-          return this.values.filter(el => el[0] >= oneWeekAgo);
+          oldTs = now - 60 * 60 * 24 * 7 * 1000;
+          return this.values.filter(el => el[0] >= oldTs);
         default:
           return this.values;
       }
