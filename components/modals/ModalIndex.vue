@@ -16,7 +16,7 @@
         </div>
       </div>
       <div>
-        <LineChart :values="valueList" :index-name="`${index.name}-modal`" />
+        <LineChart :values="valueList" :index-name="`${index.name}-modal`" :light="true" :verbose="true"/>
       </div>
      </div>
    </modal>

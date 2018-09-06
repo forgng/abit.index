@@ -1,12 +1,12 @@
 <template>
   <footer class="footer">
     <div class="container">
-      <div>
+      <!-- <div>
         Made by&nbsp;<a href="https://abit.company" target="_blank" rel="noopener noreferrer">abitcompany</a>
       </div>
       <a href="https://abit.company" target="_blank" rel="noopener noreferrer">
         <img src="https://abitcompany-cdn.sirv.com/abitcompany/abitlogo-small.png" alt="abitlogo" class="logo"/>
-      </a>
+      </a> -->
     </div>
   </footer>
 </template>

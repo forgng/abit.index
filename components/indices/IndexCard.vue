@@ -86,10 +86,11 @@ export default {
 <style lang="scss" scoped>
 .index-card {
   width: 400px;
-  background-color: #fff;
+  background-color: #424242;
   border-radius: 2px;
   // margin: 20px;
   transition: all 0.3 ease;
+  color: #fff;
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 20px 0px;

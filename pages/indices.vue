@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="indices-page">
     <div class="search-box-wrapper">
       <div class="search-box-container">
         <search-box
@@ -47,20 +47,14 @@ export default {
     SearchBox,
   },
   async asyncData({ app }) {
-    // console.log('asyncData');
     if (process.browser) {
-      // if (false) {
-      console.log('browser');
       const indices = JSON.parse(localStorage.getItem('indices'));
       console.log(indices);
       if (indices && indices.length) {
-        console.log('indices');
         const currentTs = Math.floor(new Date().getTime() / 1000);
-        console.log(currentTs);
-        const lastTs =
-          indices[0].values[indices[0].values.length - 1].timestamp;
+        const lastTs = indices[0].values[indices[0].values.length - 1][0];
         console.log(lastTs);
-        if (currentTs - lastTs < 300) {
+        if (currentTs - lastTs < 600) {
           console.log('using cache');
           return { indices, loading: false };
         }
@@ -147,6 +141,9 @@ export default {
   @media only screen and (max-width: 500px) {
     max-width: 90%;
   }
+}
+.indices-page {
+  background-color: #212121;
 }
 .page {
   max-width: 780px;

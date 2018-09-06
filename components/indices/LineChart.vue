@@ -5,7 +5,7 @@
 import Highcharts from 'highcharts';
 
 export default {
-  props: ['values', 'indexName'],
+  props: ['values', 'indexName', 'light'],
   data: function() {
     return {
       chart: null,
@@ -17,6 +17,8 @@ export default {
     },
   },
   mounted() {
+    const that = this;
+    // console.log(this.values);
     Highcharts.setOptions({ global: { useUTC: false } });
     this.chart = Highcharts.chart({
       chart: {
@@ -24,6 +26,7 @@ export default {
         type: 'line',
         height: 9 / 16 * 100 + '%', // 16:9 ratio
         animation: false,
+        backgroundColor: that.light ? '#fff' : '#424242',
       },
       plotOptions: {
         series: {
@@ -39,14 +42,47 @@ export default {
       },
       yAxis: {
         title: false,
+        labels: {
+          style: {
+            color: '#e0e0e0',
+          },
+        },
+        plotLines: [
+          {
+            value: that.values[0][1],
+            color: '#3bd0d6',
+            dashStyle: 'shortdash',
+            width: 2,
+          },
+          {
+            value: that.values[100][1],
+            color: '#3bd0d6',
+            dashStyle: 'shortdash',
+            width: 1,
+          },
+        ],
       },
       xAxis: {
         type: 'datetime',
+        labels: {
+          style: {
+            color: '#e0e0e0',
+          },
+        },
       },
       series: [
         {
           showInLegend: false,
           data: this.values,
+          zones: [
+            {
+              value: that.values[0][1],
+              color: '#ee6e73',
+            },
+            {
+              color: '#67d5b5',
+            },
+          ],
         },
       ],
       responsive: {

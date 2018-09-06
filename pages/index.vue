@@ -7,10 +7,10 @@
           <h6 style="margin: 0; text-align: end">Beta</h6>
         </div>
         <h2 class="subtitle">Crypto market indices</h2>
-        <div style="display: flex; align-items: center">
+        <!-- <div style="display: flex; align-items: center">
           <nuxt-link to="/indices">go to indices</nuxt-link>
           <button style="margin-left: 10px;" class="btn-arrow left dark" />
-        </div>
+        </div> -->
       </div>
       <section class="section">
       <div class="about">
