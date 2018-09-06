@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header :class="['header', {'dark':$nuxt.$route.path === '/indices'}]">
     <nav class="nav">
       <div>
         <nuxt-link to="/" class="align-items" v-if="$nuxt.$route.path !== '/'">
@@ -18,6 +18,18 @@
 
 <style lang="scss" scoped>
 @import '~/assets/styles/variables.scss';
+.dark {
+  background-color: $darkBackground;
+  color: $baseTextColorLight;
+  transition: 0.3s;
+  a {
+    color: $baseTextColorLight;
+    &:hover {
+      transition: 0.3s;
+      color: $mainColor;
+    }
+  }
+}
 .nav {
   padding: 0 20px;
   margin: auto;

@@ -65,12 +65,10 @@ export default {
   methods: {
     changePerc(timeFrame) {
       // return '?';
-      console.log('start');
       const oldVal = this.values.filter(
         el =>
           el.timestamp === this.lastTimestamp - this.timeFrameToDelta(timeFrame)
       );
-      console.log('t1');
       if (oldVal.length > 0) {
         return roundTo(
           (this.lastValue - oldVal[0].value) / oldVal[0].value * 100,
@@ -88,7 +86,7 @@ export default {
   width: 400px;
   background-color: #424242;
   border-radius: 2px;
-  // margin: 20px;
+  margin: 10px;
   transition: all 0.3 ease;
   color: #fff;
 

@@ -5,7 +5,7 @@
 import Highcharts from 'highcharts';
 
 export default {
-  props: ['values', 'indexName', 'light'],
+  props: ['values', 'indexName', 'light', 'verbose', 'animation'],
   data: function() {
     return {
       chart: null,
@@ -18,19 +18,18 @@ export default {
   },
   mounted() {
     const that = this;
-    // console.log(this.values);
     Highcharts.setOptions({ global: { useUTC: false } });
     this.chart = Highcharts.chart({
       chart: {
         renderTo: `container-${this.indexName}`,
         type: 'line',
         height: 9 / 16 * 100 + '%', // 16:9 ratio
-        animation: false,
         backgroundColor: that.light ? '#fff' : '#424242',
       },
       plotOptions: {
         series: {
           color: '#3bd0d6',
+          animation: that.animation,
         },
       },
       credits: {
@@ -53,12 +52,28 @@ export default {
             color: '#3bd0d6',
             dashStyle: 'shortdash',
             width: 2,
+            label: that.verbose
+              ? {
+                  text: 'Week',
+                  style: {
+                    color: '#000',
+                  },
+                }
+              : false,
           },
           {
             value: that.values[100][1],
             color: '#3bd0d6',
             dashStyle: 'shortdash',
             width: 1,
+            label: that.verbose
+              ? {
+                  text: 'Day',
+                  style: {
+                    color: '#000',
+                  },
+                }
+              : false,
           },
         ],
       },
@@ -103,4 +118,10 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.highcharts-plot-line-label {
+  transform: translate(90%, 0);
+}
+</style>
+
 

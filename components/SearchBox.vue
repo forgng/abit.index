@@ -22,6 +22,7 @@ export default {
   position: absolute;
   top: 20px;
   right: 20px;
+  color: $baseTextColorLight;
   &:hover {
     cursor: pointer;
   }
@@ -30,17 +31,18 @@ export default {
   padding: 10px 10px 10px 50px;
   position: relative;
   transition: 0.3s;
+  background-color: $darkBackground;
   .search-icon {
     position: absolute;
     top: 20px;
     left: 10px;
-    color: $baseTextColor;
+    color: $baseTextColorLight;
     transition: 0.3s;
   }
   input {
     transition: all 0.3s;
     font-weight: 400;
-    color: $baseTextColor;
+    color: $baseTextColorLight;
     margin-bottom: 5px !important;
     height: 2.5rem !important;
     &:focus {
