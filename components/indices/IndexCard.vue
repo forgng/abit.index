@@ -11,11 +11,13 @@
           :key="timeFrame"
           :time-frame="timeFrame"
           :change-perc="changesPerc[timeFrame] !== 'NaN' ?  changesPerc[timeFrame] : '?'"
+          :is-selected="selectedTimeframe === timeFrame"
+          @selected-timeframe="(timeFrame) => selectedTimeframe = timeFrame"
         />
       </div>
     </div>
     <div>
-      <LineChart :values="valueList" :index-name="indexName"/>
+      <LineChart :values="valuesSelected" :index-name="indexName"/>
     </div>
   </div>
 </template>
@@ -35,6 +37,7 @@ export default {
   props: ['indexName', 'values', 'coins', 'changesPerc'],
   data: () => ({
     timeFrames: ['1h', '1d', '7d'],
+    selectedTimeframe: '7d',
   }),
   computed: {
     lastValue() {
@@ -44,8 +47,22 @@ export default {
         return '?';
       }
     },
-    valueList() {
-      return this.values;
+    valuesSelected() {
+      const now = Date.now();
+      console.log('valuesSelected');
+      switch (this.selectedTimeframe) {
+        case '1h':
+          const oneHourAgo = now - 60 * 60 * 1000;
+          return this.values.filter(el => el[0] >= oneHourAgo);
+        case '1d':
+          const oneDayAgo = now - 60 * 60 * 24 * 1000;
+          return this.values.filter(el => el[0] >= oneDayAgo);
+        case '7d':
+          const oneWeekAgo = now - 60 * 60 * 24 * 7 * 1000;
+          return this.values.filter(el => el[0] >= oneWeekAgo);
+        default:
+          return this.values;
+      }
     },
     lastTimestamp() {
       if (this.values) {

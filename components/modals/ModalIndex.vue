@@ -15,6 +15,14 @@
           </div>
         </div>
       </div>
+      <Change
+          v-for="timeFrame in timeFrames"
+          :key="timeFrame"
+          :time-frame="timeFrame"
+          :change-perc="changesPerc[timeFrame] !== 'NaN' ?  changesPerc[timeFrame] : '?'"
+          :is-selected="selectedTimeframe === timeFrame"
+          @selected-timeframe="(timeFrame) => selectedTimeframe = timeFrame"
+        />
       <div>
         <LineChart :values="valueList" :index-name="`${index.name}-modal`" :light="true" :verbose="true" :animation="true"/>
       </div>
@@ -23,7 +31,7 @@
 </template>
 <script>
 import Modal from './Modal.vue';
-import { LineChart, Coin } from '../indices';
+import { LineChart, Coin, Change } from '../indices';
 
 export default {
   props: ['index'],
@@ -31,7 +39,12 @@ export default {
     Modal,
     LineChart,
     Coin,
+    Change,
   },
+  data: () => ({
+    timeFrames: ['1h', '1d', '7d'],
+    selectedTimeframe: '7d',
+  }),
   computed: {
     valueList() {
       return this.index.values;

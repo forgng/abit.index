@@ -5,7 +5,7 @@
 import Highcharts from 'highcharts';
 
 export default {
-  props: ['values', 'indexName', 'light', 'verbose', 'animation'],
+  props: ['values', 'indexName', 'light', 'verbose', 'animation', 'timeframe'],
   data: function() {
     return {
       chart: null,
@@ -13,7 +13,7 @@ export default {
   },
   watch: {
     values: function(newList) {
-      this.chart.series[0].addPoint(newList[newList.length - 1]);
+      this.chart.series[0].setData(newList, true);
     },
   },
   mounted() {
@@ -29,7 +29,7 @@ export default {
       plotOptions: {
         series: {
           color: '#3bd0d6',
-          animation: that.animation,
+          // animation: that.animation,
         },
       },
       credits: {
@@ -61,20 +61,6 @@ export default {
                 }
               : false,
           },
-          {
-            value: that.values[100][1],
-            color: '#3bd0d6',
-            dashStyle: 'shortdash',
-            width: 1,
-            label: that.verbose
-              ? {
-                  text: 'Day',
-                  style: {
-                    color: '#000',
-                  },
-                }
-              : false,
-          },
         ],
       },
       xAxis: {
@@ -89,6 +75,11 @@ export default {
         {
           showInLegend: false,
           data: this.values,
+          // animation: {
+          // duration: 1000,
+          // Uses Math.easeOutBounce
+          // easing: 'easeOutBounce'
+          // },
           zones: [
             {
               value: that.values[0][1],
