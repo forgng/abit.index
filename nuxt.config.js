@@ -16,7 +16,7 @@ module.exports = {
     },
   },
   'google-analytics': {
-    id: 'UA-124805298-1',
+    id: 'UA-117352627-4',
   },
 
   /*
