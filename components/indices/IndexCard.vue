@@ -114,7 +114,9 @@ export default {
           if (
             valuesCachedTimeFrame &&
             valuesCachedTimeFrame.length &&
-            now - valuesCachedTimeFrame[valuesCachedTimeFrame.length - 1][0] <=
+            now -
+              valuesCachedTimeFrame[valuesCachedTimeFrame.length - 1][0] /
+                1000 <=
               300
           ) {
             console.log('using cache');
@@ -128,7 +130,9 @@ export default {
           if (
             valuesCachedTimeFrame &&
             valuesCachedTimeFrame.length &&
-            now - valuesCachedTimeFrame[valuesCachedTimeFrame.length - 1][0] <=
+            now -
+              valuesCachedTimeFrame[valuesCachedTimeFrame.length - 1][0] /
+                1000 <=
               600
           ) {
             console.log('using cache');
