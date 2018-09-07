@@ -45,7 +45,7 @@
 <script>
 // import io from 'socket.io-client';
 import { IndexCard, ModalIndex, SearchBox } from '../components';
-import { convertToLocalTimezone } from '../components/helpers.js';
+import { convertToJsTimestamp } from '../components/helpers.js';
 
 export default {
   components: {
@@ -54,21 +54,27 @@ export default {
     SearchBox,
   },
   async asyncData({ app }) {
-    if (process.browser) {
+    if (process.browser && parseInt(process.env.USE_CACHE)) {
+      console.log(process.env.USE_CACHE);
+      console.log('browser');
       const indices = JSON.parse(localStorage.getItem('indices'));
       if (indices && indices.length) {
+        console.log('usingCache');
         const currentTs = Math.floor(new Date().getTime() / 1000);
         const lastTs = indices[0].values[indices[0].values.length - 1][0];
-        if (currentTs - lastTs < 600) {
+        if (currentTs - lastTs < process.env.CACHING_TIME) {
           return { indices, loading: false };
         }
       }
     }
     try {
+      console.log('donwload');
       const { data } = await app.$axios.get(
-        `/api/abitindex/rest/v1/last?timeframe=1800&indices=ABIT20,ABIT10,ABIT5,ABITALT20,ABITALT10,ABITALT5,ABITPRIVATE,ABITSMART,ABITIOT`
+        `/api/abitindex/rest/v1/last?timeframe=1800&indices=${
+          process.env.INDICES
+        }`
       );
-      const indicesConverted = convertToLocalTimezone(data.abitindex.indices);
+      const indicesConverted = convertToJsTimestamp(data.abitindex.indices);
       return {
         indices: indicesConverted,
         error: false,
@@ -79,30 +85,6 @@ export default {
       // console.log(e);
       return { error: true, indices: [], loading: false };
     }
-  },
-  created() {
-    // if (process.env.NODE_ENV == 'development') {
-    //   this.socket = io(`https://abitapi.com`, {
-    //     reconnection: true,
-    //     reconnectionDelay: 1000,
-    //     reconnectionDelayMax: 5000,
-    //     reconnectionAttempts: 5,
-    //   });
-    // } else {
-    //   this.socket = io(`https://abitapi.com`, {
-    //     reconnection: true,
-    //     reconnectionDelay: 1000,
-    //     reconnectionDelayMax: 5000,
-    //     reconnectionAttempts: 5,
-    //   });
-    // }
-    // this.socket.on('error', () => {
-    //   console.err('ERROR');
-    // });
-    // this.socket.on('abit-index-update', newIndices => {
-    //   const indicesConverted = convertToLocalTimezone(newIndices.indices);
-    //   this.indices = indicesConverted;
-    // });
   },
   data: function() {
     return {
@@ -115,7 +97,9 @@ export default {
     };
   },
   mounted() {
-    localStorage.setItem('indices', JSON.stringify(this.indices));
+    if (this.indices.length) {
+      localStorage.setItem('indices', JSON.stringify(this.indices));
+    }
   },
   beforeDestroy: function() {
     // this.socket.emit('end');

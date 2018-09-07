@@ -15,15 +15,17 @@
           </div>
         </div>
       </div>
-      <Change
-          v-for="timeFrame in timeFrames"
-          :key="timeFrame"
-          :time-frame="timeFrame"
-          :change-perc="changesPerc[timeFrame] !== 'NaN' ?  changesPerc[timeFrame] : '?'"
-          :is-selected="selectedTimeframe === timeFrame"
-          @selected-timeframe="(timeFrame) => selectedTimeframe = timeFrame"
-        />
-      <div>
+      <div class="changes-container">
+        <Change
+            v-for="timeFrame in timeFrames"
+            :key="timeFrame"
+            :time-frame="timeFrame"
+            :change-perc="index.changesPerc[timeFrame] !== 'NaN' ?  index.changesPerc[timeFrame] : '?'"
+            :is-selected="selectedTimeframe === timeFrame"
+            @selected-timeframe="(timeFrame) => selectedTimeframe = timeFrame"
+          />
+        </div>
+      <div class="chart-container">
         <LineChart :values="valueList" :index-name="`${index.name}-modal`" :light="true" :verbose="true" :animation="true"/>
       </div>
      </div>
@@ -50,10 +52,10 @@ export default {
       return this.index.values;
     },
     lastValue() {
-      return this.index.values[this.index.values.length - 1].value;
+      return this.index.values[this.index.values.length - 1][1];
     },
     lastTimestamp() {
-      return this.index.values[this.index.values.length - 1].timestamp;
+      return this.index.values[this.index.values.length - 1][0];
     },
     coinsOrdered() {
       return this.index.coins
@@ -63,7 +65,9 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss">
+@import '~/assets/styles/variables.scss';
+
 .coin-list {
   display: flex;
   flex-direction: row;
@@ -84,5 +88,17 @@ export default {
 }
 .value {
   margin: 0;
+}
+.changes-container {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  // max-width: 200px;
+  // padding: 5px;
+  // border-radius: 2px;
+}
+.chart-container {
+  margin: auto;
+  max-width: 80%;
 }
 </style>

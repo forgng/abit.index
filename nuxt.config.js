@@ -1,5 +1,10 @@
 module.exports = {
-  modules: ['@nuxtjs/proxy', '@nuxtjs/axios', '@nuxtjs/google-analytics'],
+  modules: [
+    '@nuxtjs/proxy',
+    '@nuxtjs/axios',
+    '@nuxtjs/google-analytics',
+    '@nuxtjs/dotenv',
+  ],
 
   axios: {
     proxy: true,
@@ -9,9 +14,9 @@ module.exports = {
     '/api': {
       target:
         process.env.NODE_ENV !== 'production'
-          ? // ? 'http://127.0.0.1:4000'
-            'https://abitapi.com'
-          : 'https://abitapi.com',
+          ? 'http://127.0.0.1:4000'
+          : // 'https://abitapi.com'
+            'https://abitapi.com',
       pathRewrite: { '^/api': '' },
     },
   },

@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "5.3.1",
+    "@nuxtjs/dotenv": "1.1.1",
     "@nuxtjs/google-analytics": "2.0.2",
     "@nuxtjs/proxy": "1.2.4",
     "highcharts": "6.1.1",
@@ -29,7 +30,6 @@
     "eslint-loader": "1.7.1",
     "eslint-plugin-prettier": "2.6.2",
     "eslint-plugin-vue": "4.0.0",
-    "husky": "^0.14.3",
     "node-sass": "4.9.0",
     "prettier": "1.14.2",
     "sass-loader": "7.0.3"

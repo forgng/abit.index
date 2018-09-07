@@ -30,8 +30,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
   &.selected {
     background-color: $mainColor;
+    color: $baseTextColorLight;
   }
 }
 .time-frame {

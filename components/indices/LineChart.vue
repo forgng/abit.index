@@ -5,7 +5,15 @@
 import Highcharts from 'highcharts';
 
 export default {
-  props: ['values', 'indexName', 'light', 'verbose', 'animation', 'timeframe'],
+  props: [
+    'values',
+    'valuesUpdate',
+    'indexName',
+    'light',
+    'verbose',
+    'animation',
+    'timeframe',
+  ],
   data: function() {
     return {
       chart: null,
@@ -13,21 +21,48 @@ export default {
   },
   watch: {
     values: function(newValues) {
-      const zones = [
-        {
-          value: newValues[0][1],
-          color: '#ee6e73',
-        },
-        {
-          color: '#67d5b5',
-        },
-      ];
-      this.chart.series[0].update({
-        zones: zones,
-      });
-      this.chart.yAxis[0].options.plotLines[0].value = newValues[0][1];
-      this.chart.yAxis[0].update();
-      this.chart.series[0].setData(newValues, true);
+      if (newValues.length) {
+        const zones = [
+          {
+            value: newValues[0][1],
+            color: '#ee6e73',
+          },
+          {
+            color: '#67d5b5',
+          },
+        ];
+        this.chart.series[0].update({
+          zones: zones,
+        });
+        this.chart.yAxis[0].options.plotLines[0].value = newValues[0][1];
+        this.chart.yAxis[0].update();
+        this.chart.series[0].setData(newValues, true);
+      } else {
+        this.chart.yAxis[0].options.plotLines[0].value = 0;
+        this.chart.series[0].setData([], true);
+      }
+    },
+    valuesUpdate: function(newValues) {
+      if (newValues.length) {
+        const zones = [
+          {
+            value: newValues[0][1],
+            color: '#ee6e73',
+          },
+          {
+            color: '#67d5b5',
+          },
+        ];
+        this.chart.series[0].update({
+          zones: zones,
+        });
+        this.chart.yAxis[0].options.plotLines[0].value = newValues[0][1];
+        this.chart.yAxis[0].update();
+        this.chart.series[0].setData(newValues, true);
+      } else {
+        this.chart.yAxis[0].options.plotLines[0].value = 0;
+        this.chart.series[0].setData([], true);
+      }
     },
   },
   mounted() {

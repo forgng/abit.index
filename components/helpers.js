@@ -33,7 +33,7 @@ const getReadableDate = timestamp => {
   return `${day} ${month} ${year}, ${hours}:${minutes.substr(-2)} UTC`;
 };
 
-const convertToLocalTimezone = indices => {
+const convertToJsTimestamp = indices => {
   // const offset = new Date().getTimezoneOffset();
   const indicesConverted = indices.map(index => {
     const valuesConverted = index.values.map(value => [
@@ -45,4 +45,4 @@ const convertToLocalTimezone = indices => {
   return indicesConverted;
 };
 
-export { roundTo, getReadableDate, convertToLocalTimezone };
+export { roundTo, getReadableDate, convertToJsTimestamp };
