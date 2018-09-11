@@ -45,7 +45,7 @@ export default {
   }),
   computed: {
     ...mapState(['isIndexUpdating']),
-    ...mapGetters(['getIndex']),
+    ...mapGetters(['getIndex', 'maxNumOfRetriesReached']),
     lastValue() {
       return this.index.lastValue || '?';
     },
@@ -54,7 +54,10 @@ export default {
       const now = (new Date().getTime() / 1000) | 0;
       switch (this.selectedTimeSpan) {
         case '1h':
-          if (this.index.shoudlUpdateValues(timeFrame)) {
+          if (
+            !this.maxNumOfRetriesReached &&
+            this.index.shoudlUpdateValues(timeFrame)
+          ) {
             const oneHourAgo = now - 60 * 60;
             this.downloadData({
               timeFrame,
@@ -64,7 +67,10 @@ export default {
           }
           return this.index.getValues(timeFrame);
         case '24h':
-          if (this.index.shoudlUpdateValues(timeFrame)) {
+          if (
+            !this.maxNumOfRetriesReached &&
+            this.index.shoudlUpdateValues(timeFrame)
+          ) {
             const oneDayAgo = now - 60 * 60 * 24;
             this.downloadData({
               timeFrame,
@@ -87,6 +93,7 @@ export default {
 @import '~/assets/styles/variables.scss';
 .index-card {
   display: flex;
+  // max-width: 400px;
   flex-direction: column;
   background-color: #424242;
   border-radius: 2px;

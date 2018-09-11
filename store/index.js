@@ -9,10 +9,12 @@ const createStore = () => {
     state: {
       indices: [],
       isIndexUpdating: {},
+      numOfRetries: 0,
     },
     getters: {
-      getIndex() {},
-
+      maxNumOfRetriesReached: state => {
+        return state.numOfRetries >= 1;
+      },
       shouldGlobalUpdate: state => {
         if (!state.indices.length) return true;
         const now = (new Date().getTime() / 1000) | 0;
@@ -61,6 +63,9 @@ const createStore = () => {
       },
       updateCache(state) {
         localStorage.setItem('indices', JSON.stringify(state.indices));
+      },
+      incrementRetries(state) {
+        state.numOfRetries = state.numOfRetries + 1;
       },
     },
     actions: {
@@ -123,9 +128,9 @@ const createStore = () => {
           commit('updateCache');
         } catch (error) {
           console.error(error);
+          commit('incrementRetries');
           commit('updateAll', {
             indices: [],
-            timeFrame: '?',
           });
         } finally {
           const loadingMapFalse = indices.reduce((prev, indexName) => {

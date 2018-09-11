@@ -1,7 +1,6 @@
 <template>
   <no-ssr>
     <div>
-      <!-- <LineLoading v-if="loading" /> -->
       <Header/>
       <main>
         <nuxt/>
@@ -12,14 +11,13 @@
 </template>
 
 <script>
-import { Header, Footer, LineLoading } from '~/components';
-import { mapActions, mapState } from 'vuex';
+import { Header, Footer } from '~/components';
+import { mapState } from 'vuex';
 
 export default {
   components: {
     Header,
     Footer,
-    LineLoading,
   },
 };
 </script>
