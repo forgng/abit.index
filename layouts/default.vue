@@ -1,20 +1,25 @@
 <template>
-  <div>
-    <Header/>
-    <main>
-      <nuxt/>
-    </main>
-    <Footer />
-  </div>
+  <no-ssr>
+    <div>
+      <!-- <LineLoading v-if="loading" /> -->
+      <Header/>
+      <main>
+        <nuxt/>
+      </main>
+      <Footer />
+    </div>
+  </no-ssr>
 </template>
 
 <script>
-import { Header, Footer } from '~/components';
+import { Header, Footer, LineLoading } from '~/components';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
     Header,
     Footer,
+    LineLoading,
   },
 };
 </script>

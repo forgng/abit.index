@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="page-content">
-      <div v-if="loading">Loading</div>
+      <div v-if="isLoading">Just a sec...</div>
       <div v-else-if="error || !indices">
         <div class="page">
           <h3 style="text-align: center">Something went wrong, retry later</h3>
@@ -29,90 +29,62 @@
       <transition-group  v-else name="list-complete" tag="div" class="content" appear>
         <div v-for="index in indicesFiltered" :key="index.name" class="cell list-complete-item">
           <IndexCard
-            :index-name="index.name"
-            :values="index.values"
-            :coins="index.coins"
-            :changes-perc="index.changesPerc"
-            @open-index-modal="(indexName) => indexSelected = indexName"
+            :index="index"
+            @open-index-modal="(indexName) => indexSelectedName = indexName"
           />
         </div>
       </transition-group>
     </div>
-    <ModalIndex v-if="indexSelected" :index="indexSelectedValues" @close-modal="indexSelected = ''"/>
+    <ModalIndex v-if="indexSelectedName" :index="indexSelected" @close-modal="indexSelectedName = ''"/>
   </div>
 </template>
 
 <script>
-// import io from 'socket.io-client';
 import { IndexCard, ModalIndex, SearchBox } from '../components';
-import { convertToJsTimestamp } from '../components/helpers.js';
+import { mapGetters, mapActions, mapState } from 'vuex';
 
 export default {
+  name: 'IndicesPage',
   components: {
     IndexCard,
     ModalIndex,
     SearchBox,
   },
-  async asyncData({ app }) {
-    if (process.browser && parseInt(process.env.USE_CACHE)) {
-      console.log(process.env.USE_CACHE);
-      console.log('browser');
-      const indices = JSON.parse(localStorage.getItem('indices'));
-      if (indices && indices.length) {
-        console.log('usingCache');
-        const currentTs = Math.floor(new Date().getTime() / 1000);
-        const lastTs = indices[0].values[indices[0].values.length - 1][0];
-        if (currentTs - lastTs < process.env.CACHING_TIME) {
-          return { indices, loading: false };
-        }
-      }
-    }
-    try {
-      console.log('donwload');
-      const { data } = await app.$axios.get(
-        `/api/abitindex/rest/v1/last?timeframe=1800&indices=${
-          process.env.INDICES
-        }`
-      );
-      const indicesConverted = convertToJsTimestamp(data.abitindex.indices);
-      return {
-        indices: indicesConverted,
-        error: false,
-        loading: false,
-        lastTimestamp: data.abitindex.timestamp,
-      };
-    } catch (e) {
-      // console.log(e);
-      return { error: true, indices: [], loading: false };
-    }
-  },
   data: function() {
     return {
-      indexSelected: '',
+      indexSelectedName: '',
       searchString: '',
       error: false,
       socket: null,
-      indices: null,
-      loading: true,
+      isLoading: false,
+      timeFrame: '30m',
     };
   },
   mounted() {
-    if (this.indices.length) {
-      localStorage.setItem('indices', JSON.stringify(this.indices));
+    this.loadCache({ indices: process.env.INDICES.split(',') });
+    if (this.shouldGlobalUpdate) {
+      console.log('MUST UPDATE');
+      this.downloadData({
+        timeFrame: this.timeFrame,
+        indices: process.env.INDICES.split(','),
+      });
     }
   },
-  beforeDestroy: function() {
-    // this.socket.emit('end');
-  },
+
   computed: {
-    indexSelectedValues() {
-      return this.indices.filter(el => el.name == this.indexSelected)[0];
+    ...mapState(['indices']),
+    ...mapGetters(['shouldGlobalUpdate']),
+    indexSelected() {
+      return this.indices.filter(el => el.name === this.indexSelectedName)[0];
     },
     indicesFiltered() {
       return this.indices.filter(el =>
         el.name.toLowerCase().includes(this.searchString.toLowerCase())
       );
     },
+  },
+  methods: {
+    ...mapActions(['downloadData', 'loadCache']),
   },
 };
 </script>
@@ -155,7 +127,6 @@ export default {
 .list-complete-item {
   transition: all 0.8s;
   display: inline-block;
-  margin-right: 10px;
 }
 .list-complete-enter, .list-complete-leave-to
 /* .list-complete-leave-active below version 2.1.8 */ {

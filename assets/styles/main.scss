@@ -87,6 +87,17 @@ span[data-positive='-1'] {
     }
 }
 
+hr {
+    margin-top: 10px;
+    border: 0;
+    border-top: 1px solid #eee;
+    box-sizing: content-box;
+    height: 0;
+    &.half {
+        width: 50%;
+    }
+}
+
 .base-input {
     background-color: transparent;
     border: none;

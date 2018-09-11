@@ -129,11 +129,19 @@ module.exports = {
   /*
   ** Build configuration
   */
+  // build: {
+  //   extend(config, options) {
+  //     return Object.assign({}, config, {
+  //       devtool: 'source-map'
+  //     })
+  //   }
+  // }
   build: {
     /*
     ** Run ESLint on save
     */
     extend(config, { isDev }) {
+      if (isDev) config.devtool = '#source-map';
       if (isDev && process.client) {
         config.module.rules.push({
           enforce: 'pre',

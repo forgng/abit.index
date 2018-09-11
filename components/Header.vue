@@ -1,5 +1,5 @@
 <template>
-  <header :class="['header', {'dark':$nuxt.$route.path === '/indices'}]">
+  <header :class="['header', {'dark':$nuxt.$route.path != '/'}]">
     <nav class="nav">
       <div>
         <nuxt-link to="/" class="align-items" v-if="$nuxt.$route.path !== '/'">

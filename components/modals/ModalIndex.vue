@@ -1,6 +1,7 @@
 <template>
   <modal @close="$emit('close-modal')" v-cloak>
      <h4 slot="header">
+       <LineLoading v-if="isIndexUpdating[index.name]"/>
        <div style="display: flex; flex-direction: column">
         <h3 class="title">{{ index.name }}</h3>
         <h1 class="value">{{ lastValue }}</h1>
@@ -8,25 +9,33 @@
      </h4>
      <div slot="body">
       <div class="coin-list">
-        <div style="display: flex; flex-direction: row">
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center">
           <div v-for="coin in coinsOrdered" :key="coin.coinCode" class="coin-container">
             <Coin  :symbol="coin.coinCode.toLowerCase()" />
             <span class="coin-perc">{{ coin.perc }}%</span>
           </div>
         </div>
       </div>
+      <div style="display: flex; justify-content: center">
+        <hr class="half"/>
+      </div>
       <div class="changes-container">
         <Change
-            v-for="timeFrame in timeFrames"
-            :key="timeFrame"
-            :time-frame="timeFrame"
-            :change-perc="index.changesPerc[timeFrame] !== 'NaN' ?  index.changesPerc[timeFrame] : '?'"
-            :is-selected="selectedTimeframe === timeFrame"
-            @selected-timeframe="(timeFrame) => selectedTimeframe = timeFrame"
+            v-for="timeSpan in timeSpans"
+            :key="timeSpan"
+            :time-span="timeSpan"
+            :change-perc="index.changesPerc[timeSpan] !== 'NaN' ?  index.changesPerc[timeSpan] : '?'"
+            :is-selected="selectedTimeSpan === timeSpan"
+            @selected-timespan="(timeSpan) => selectedTimeSpan = timeSpan"
           />
         </div>
       <div class="chart-container">
-        <LineChart :values="valueList" :index-name="`${index.name}-modal`" :light="true" :verbose="true" :animation="true"/>
+        <LineChart :values="valuesSelected"
+          :index-name="`${index.name}-modal`"
+          :verbose="true"
+          :animation="true"
+          theme="light"
+          />
       </div>
      </div>
    </modal>
@@ -34,6 +43,10 @@
 <script>
 import Modal from './Modal.vue';
 import { LineChart, Coin, Change } from '../indices';
+import LineLoading from '../LineLoading';
+
+import { timeSpanToTimeFrame } from '../../helpers';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   props: ['index'],
@@ -42,26 +55,53 @@ export default {
     LineChart,
     Coin,
     Change,
+    LineLoading,
   },
   data: () => ({
-    timeFrames: ['1h', '1d', '7d'],
-    selectedTimeframe: '7d',
+    timeSpans: ['1h', '24h', '7d'],
+    selectedTimeSpan: '7d',
   }),
   computed: {
-    valueList() {
-      return this.index.values;
-    },
+    ...mapState(['isIndexUpdating']),
     lastValue() {
-      return this.index.values[this.index.values.length - 1][1];
+      return this.index.getlastValue();
     },
-    lastTimestamp() {
-      return this.index.values[this.index.values.length - 1][0];
+    valuesSelected() {
+      const timeFrame = timeSpanToTimeFrame(this.selectedTimeSpan);
+      const now = (new Date().getTime() / 1000) | 0;
+      switch (this.selectedTimeSpan) {
+        case '1h':
+          if (this.index.shoudlUpdateValues(timeFrame)) {
+            const oneHourAgo = now - 60 * 60;
+            this.downloadData({
+              timeFrame,
+              indices: [this.index.name],
+              startTime: oneHourAgo,
+            });
+          }
+          return this.index.getValues(timeFrame);
+        case '24h':
+          if (this.index.shoudlUpdateValues('10m')) {
+            const oneDayAgo = now - 60 * 60 * 24;
+            this.downloadData({
+              timeFrame,
+              indices: [this.index.name],
+              startTime: oneDayAgo,
+            });
+          }
+          return this.index.getValues('10m');
+        case '7d':
+          return this.index.getValues('30m');
+      }
     },
     coinsOrdered() {
       return this.index.coins
         .map(el => ({ ...el }))
         .sort((a, b) => b.perc - a.perc);
     },
+  },
+  methods: {
+    ...mapActions(['downloadData']),
   },
 };
 </script>
@@ -81,7 +121,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 5px;
+  margin: 5px;
 }
 .title {
   margin: 0;
@@ -99,6 +139,6 @@ export default {
 }
 .chart-container {
   margin: auto;
-  max-width: 80%;
+  // max-width: 80%;
 }
 </style>

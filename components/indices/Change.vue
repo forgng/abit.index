@@ -1,7 +1,7 @@
 <template>
   <div class="change">
-      <div :class="['timeframe-container', {'selected': isSelected}]" @click.stop="$emit('selected-timeframe', timeFrame)">
-        <h6 class="time-frame">{{ timeFrame }}</h6>
+      <div :class="['timespan-container', {'selected': isSelected}]" @click.stop="$emit('selected-timespan', timeSpan)">
+        <h6 class="time-frame">{{ timeSpan }}</h6>
       </div>
       <div class="perc-change">
         <span :data-positive="Math.sign(changePerc)">{{ changePerc }}%</span>
@@ -11,7 +11,7 @@
 <script>
 export default {
   name: 'change',
-  props: ['timeFrame', 'changePerc', 'isSelected'],
+  props: ['timeSpan', 'changePerc', 'isSelected'],
 };
 </script>
 <style lang="scss" scoped>
@@ -23,7 +23,7 @@ export default {
   align-items: center;
   margin: 0 5px;
 }
-.timeframe-container {
+.timespan-container {
   border-radius: 50%;
   width: 35px;
   height: 35px;
