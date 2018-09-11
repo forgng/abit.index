@@ -2,7 +2,7 @@
   <header :class="['header', {'dark':$nuxt.$route.path != '/'}]">
     <nav class="nav">
       <div>
-        <nuxt-link to="/" class="align-items" v-if="$nuxt.$route.path !== '/'">
+        <nuxt-link to="/" class="logo" v-if="$nuxt.$route.path !== '/'">
           abitindex
         </nuxt-link>
       </div>
@@ -18,6 +18,11 @@
 
 <style lang="scss" scoped>
 @import '~/assets/styles/variables.scss';
+.logo {
+  @media screen and (max-width: $break-card) {
+    font-size: 0.8rem;
+  }
+}
 .dark {
   background-color: $darkBackground;
   color: $baseTextColorLight;
@@ -48,5 +53,8 @@
 }
 .nav-link {
   margin: 0 15px;
+  @media screen and (max-width: $break-card) {
+    font-size: 0.8rem;
+  }
 }
 </style>

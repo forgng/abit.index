@@ -20,6 +20,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/styles/variables.scss';
+.coin-logo {
+  @media screen and (max-width: $break-card) {
+    height: 20px;
+    width: 20px;
+  }
+}
 .coin-container {
   height: 30px;
   width: 30px;

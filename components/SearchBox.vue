@@ -26,18 +26,30 @@ export default {
   &:hover {
     cursor: pointer;
   }
+  @media screen and (max-width: $break-card) {
+    font-size: 1rem;
+    top: 25px;
+  }
 }
 .search-box {
   padding: 10px 10px 10px 50px;
   position: relative;
   transition: 0.3s;
   background-color: $darkBackground;
+  @media screen and (max-width: $break-card) {
+    padding: 10px 0px 0px 40px;
+  }
   .search-icon {
     position: absolute;
     top: 20px;
     left: 10px;
     color: $baseTextColorLight;
     transition: 0.3s;
+    @media screen and (max-width: $break-card) {
+      font-size: 1.2rem;
+      top: 25px;
+      left: 15px;
+    }
   }
   input {
     transition: all 0.3s;
@@ -45,6 +57,9 @@ export default {
     color: $baseTextColorLight;
     margin-bottom: 5px !important;
     height: 2.5rem !important;
+    @media screen and (max-width: $break-card) {
+      font-size: 0.9rem;
+    }
     &:focus {
       transition: 0.3s;
       box-shadow: 0 1px 0 0 $mainColor !important;

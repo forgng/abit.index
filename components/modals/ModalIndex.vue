@@ -115,6 +115,9 @@ export default {
 }
 .coin-perc {
   font-size: 0.7rem;
+  @media screen and (max-width: $break-card) {
+    font-size: 0.6rem;
+  }
 }
 .coin-container {
   display: flex;
@@ -125,9 +128,15 @@ export default {
 }
 .title {
   margin: 0;
+  @media screen and (max-width: $break-card) {
+    font-size: 2rem;
+  }
 }
 .value {
   margin: 0;
+  @media screen and (max-width: $break-card) {
+    font-size: 2rem;
+  }
 }
 .changes-container {
   display: flex;

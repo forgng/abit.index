@@ -1,6 +1,6 @@
 import Vuex from 'vuex';
 import { convertToJsTimestamp, timeFrameToSec } from '../helpers';
-import Index from '../AbitIndex';
+import Index from './AbitIndex';
 
 const createStore = () => {
   return new Vuex.Store({
@@ -28,12 +28,9 @@ const createStore = () => {
         state.indices = indices;
       },
       updateAll(state, { indices, timeFrame }) {
-        console.log('UPDATE ALL');
-        console.log(indices);
         const indicesUpdated = indices.map(index => index.name);
 
         const newIndices = indices.map(newIndex => {
-          console.log(newIndex);
           const savedIndex = state.indices.find(
             index => index.name === newIndex.name
           );
@@ -46,7 +43,6 @@ const createStore = () => {
             newIndex.lastValue
           );
         });
-        console.log(newIndices);
         const allOtherIndices = state.indices.filter(
           index => !indicesUpdated.includes(index.name)
         );
@@ -72,11 +68,8 @@ const createStore = () => {
         const indicesCached = JSON.parse(localStorage.getItem('indices'));
         // const indicesCached = false;
         if (indicesCached) {
-          console.log(indicesCached);
           const envIndicesSet = new Set(indices);
-          console.log(envIndicesSet);
           const currentIndicesSet = new Set(indicesCached.map(el => el.name));
-          console.log(currentIndicesSet);
           let invalidateCache = false;
           if (envIndicesSet.size !== currentIndicesSet.size)
             invalidateCache = true;
@@ -84,7 +77,6 @@ const createStore = () => {
             if (!currentIndicesSet.has(a)) invalidateCache = true;
 
           if (invalidateCache) {
-            console.log('INVALIDATE CACHE');
             localStorage.removeItem('indices');
             const newIndices = indices
               .map(indexName => new Index(indexName, {}, [], {}, 0))
@@ -113,8 +105,6 @@ const createStore = () => {
       },
 
       async downloadData({ commit }, { timeFrame, indices, startTime = '' }) {
-        console.log('DOWNLOAD');
-        console.log(indices);
         const loadingMap = indices.reduce((prev, indexName) => {
           return { ...prev, [indexName]: true };
         }, {});

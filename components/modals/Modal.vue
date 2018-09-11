@@ -42,12 +42,6 @@ export default {
     top: 4px;
     right: 2px;
   }
-  &.login {
-    position: absolute;
-    top: 3%;
-    right: 1.5%;
-    cursor: pointer;
-  }
 }
 
 .modal-mask {
@@ -70,7 +64,8 @@ export default {
   z-index: 1001;
   width: 90%;
   max-height: 90%;
-  top: 5%;
+  top: 0;
+  transform: translate(0, 5%);
   overflow-y: auto;
   background-color: #fff;
   color: $baseTextColor;

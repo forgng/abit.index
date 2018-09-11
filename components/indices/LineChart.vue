@@ -1,5 +1,5 @@
 <template>
-  <div :id="`container-${indexName}`" style="width:100%; height:100%;"></div>
+  <div :id="`container-${indexName}`" style="width:100%; height:100%;" class="container-chart"></div>
 </template>
 <script>
 import Highcharts from 'highcharts';
@@ -118,11 +118,6 @@ export default {
           showInLegend: false,
           data:
             that.values && that.values.length ? that.values.map(el => el) : [],
-          // animation: {
-          // duration: 1000,
-          // Uses Math.easeOutBounce
-          // easing: 'easeOutBounce'
-          // },
           zones: [
             {
               value:
@@ -160,13 +155,18 @@ export default {
 .highcharts-plot-line-label {
   transform: translate(90%, 0);
 }
-// .highcharts-tooltip-box {
-//   fill-opacity: 0.6;
-//   stroke-width: 0;
-// }
 
-// .highcharts-tooltip text {
-//   fill: white;
-//   // text-shadow: 0 0 3px black;
-// }
+.highcharts-tracker {
+  @media screen and (max-width: $break-card) {
+    display: none;
+  }
+  @media screen and (max-width: $break-card-small) {
+    margin: 0 3px;
+    .highcharts-axis-labels.highcharts-xaxis-labels {
+      text {
+        font-size: 10px;
+      }
+    }
+  }
+}
 </style>

@@ -1,4 +1,4 @@
-import { timeFrameToSec } from './helpers';
+import { timeFrameToSec } from '../helpers';
 
 export default class Index {
   constructor(name, changesPerc, coins, values, lastValue) {

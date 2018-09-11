@@ -22,6 +22,9 @@ export default {
   justify-content: center;
   align-items: center;
   margin: 0 5px;
+  @media screen and (max-width: $break-card-small) {
+    margin: 0 3px;
+  }
 }
 .timespan-container {
   border-radius: 50%;
@@ -30,6 +33,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: $break-card) {
+    width: 30px;
+    height: 30px;
+  }
+  @media screen and (max-width: $break-card-small) {
+    width: 25px;
+    height: 25px;
+  }
   &:hover {
     cursor: pointer;
   }
@@ -42,6 +53,12 @@ export default {
   text-align: center;
   font-size: 0.8rem;
   margin: 0;
+  @media screen and (max-width: $break-card) {
+    font-size: 0.7rem;
+  }
+  @media screen and (max-width: $break-card-small) {
+    font-size: 0.6rem;
+  }
 }
 
 .perc-change {
@@ -52,5 +69,11 @@ export default {
   justify-content: center;
   align-items: center;
   margin: 4px 0;
+  @media screen and (max-width: $break-card) {
+    font-size: 0.65rem;
+  }
+  @media screen and (max-width: $break-card-small) {
+    font-size: 0.55rem;
+  }
 }
 </style>

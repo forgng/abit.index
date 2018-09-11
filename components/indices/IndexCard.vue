@@ -86,14 +86,14 @@ export default {
 <style lang="scss" scoped>
 @import '~/assets/styles/variables.scss';
 .index-card {
-  width: 400px;
-  min-height: 300px;
+  display: flex;
+  flex-direction: column;
   background-color: #424242;
   border-radius: 2px;
-  margin: 10px;
   transition: all 0.3 ease;
   color: #fff;
   position: relative;
+
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 20px 0px;
     transform: scale(1.01, 1.01);
@@ -109,12 +109,24 @@ export default {
 .index-name {
   // text-align: center;
   font-weight: 200;
+  @media screen and (max-width: $break-card) {
+    font-size: 1rem;
+  }
+  @media screen and (max-width: $break-card-small) {
+    font-size: 0.8rem;
+  }
 }
 .last-value {
   // text-align: center;
   // font-size: 4rem;
   font-weight: 200;
   margin: 0;
+  @media screen and (max-width: $break-card) {
+    font-size: 1rem;
+  }
+  @media screen and (max-width: $break-card-small) {
+    font-size: 0.8rem;
+  }
 }
 .changes-container {
   display: flex;

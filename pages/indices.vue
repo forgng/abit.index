@@ -27,7 +27,7 @@
         </div>
       </div>
       <transition-group  v-else name="list-complete" tag="div" class="content" appear>
-        <div v-for="index in indicesFiltered" :key="index.name" class="cell list-complete-item">
+        <div v-for="index in indicesFiltered" :key="index.name" class="list-complete-item">
           <IndexCard
             :index="index"
             @open-index-modal="(indexName) => indexSelectedName = indexName"
@@ -63,7 +63,6 @@ export default {
   mounted() {
     this.loadCache({ indices: process.env.INDICES.split(',') });
     if (this.shouldGlobalUpdate) {
-      console.log('MUST UPDATE');
       this.downloadData({
         timeFrame: this.timeFrame,
         indices: process.env.INDICES.split(','),
@@ -92,10 +91,6 @@ export default {
 <style lang="scss" scoped>
 @import '~/assets/styles/variables.scss';
 
-.cell {
-  margin: auto;
-  max-width: 400px;
-}
 .search-box-wrapper {
   max-width: 80%;
   margin: auto;
@@ -118,10 +113,12 @@ export default {
   padding: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-gap: 1rem;
-  // display: flex;
-  // flex-direction: row;
-  // flex-wrap: wrap;
-  // justify-content: center;
+  @media screen and (max-width: $break-card) {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  @media screen and (max-width: $break-card-small) {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
 }
 
 .list-complete-item {
