@@ -32,10 +32,26 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'abitindex' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'A curated collection of cryptocurrencies indices',
+      },
       { name: 'msapplication-TileColor', content: '#ffffff' },
       { name: 'msapplication-TileImage', content: '/ms-icon-144x144.png' },
       { name: 'theme-color', content: '#ffffff' },
+      { property: 'og:url', content: 'https://abitindex.com' },
+      { property: 'og:site_name', content: 'abitindex' },
+      { property: 'og:title', content: 'abitindex' },
+      {
+        property: 'og:description',
+        content: 'A curated collection of cryptocurrencies indices',
+      },
+      { property: 'og:type', content: 'website' },
+      {
+        property: 'og:image',
+        content: 'https://abitindex.com/abit-index-logo.png',
+      },
     ],
     link: [
       {
