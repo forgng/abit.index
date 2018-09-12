@@ -115,7 +115,8 @@ const createStore = () => {
         }, {});
         commit('setLoading', loadingMap);
         try {
-          let urlPrefix = process.env.NODE_ENV === 'development' ? '/api' : '';
+          let urlPrefix =
+            process.env.NODE_ENV === 'development' ? '/api' : '/api';
           const url = `${urlPrefix}/abitindex/rest/v1/last?timeframe=${timeFrame}&indices=${indices.join()}&start=${startTime}`;
           const { data } = await this.$axios.get(url);
           const indicesConverted = data.abitindex.indices.map(
