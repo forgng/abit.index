@@ -53,7 +53,7 @@ module.exports = {
       { property: 'og:type', content: 'website' },
       {
         property: 'og:image',
-        content: 'https://abitindex.com/abit-index-logo.png',
+        content: 'https://abitindex.com/abitindex-logo-squared.png',
       },
     ],
     link: [

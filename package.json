@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Cryptocurrencies market indexes",
   "author": "Gianluca Chiap <gianlucachiap@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "dev": "nuxt",
     "prod": "yarn build && yarn star",
