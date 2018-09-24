@@ -1,18 +1,18 @@
 <template>
-    <div class="page">
-      <div class="hero"/>
-      <div class="hero-message">
-        <div style="display: inline-block">
-          <h1 class="title">abitindex</h1>
-          <h6 style="margin: 0; text-align: end">Beta</h6>
-        </div>
-        <h2 class="subtitle">Crypto market indices</h2>
-        <!-- <div style="display: flex; align-items: center">
-          <nuxt-link to="/indices">go to indices</nuxt-link>
-          <button style="margin-left: 10px;" class="btn-arrow left dark" />
-        </div> -->
+  <div class="page">
+    <div class="hero"/>
+    <div class="hero-message">
+      <div style="display: inline-block">
+        <h1 class="title">abitindex</h1>
+        <h6 style="margin: 0; text-align: end">Beta</h6>
       </div>
-      <section class="section">
+      <h2 class="subtitle">Crypto market indices</h2>
+      <!-- <div style="display: flex; align-items: center">
+        <nuxt-link to="/indices">go to indices</nuxt-link>
+        <button style="margin-left: 10px;" class="btn-arrow left dark" />
+      </div> -->
+    </div>
+    <section class="section">
       <div class="about">
         <h3 class="section-title">About</h3>
         <p>abitindex is a collection of indices for the crypto market</p>
@@ -27,11 +27,11 @@
     <section class="section">
       <h3 class="section-title">Why market indices</h3>
       <p>Market indexes are foundamentals for getting quality information
-        regarding the performance of a market. This serves as an overview and
-        for a benchmark for a portfolio.
+      regarding the performance of a market. This serves as an overview of a specific mrket segment or
+      for a benchmark for a portfolio.
       </p>
     </section>
-    </div>
+  </div>
 </template>
 <style lang="scss" scoped>
 .hero-message {
@@ -56,7 +56,7 @@
   width: 100%;
   min-height: 700px;
   z-index: -1;
-  background-image: url('~/assets/hero.svg');
+  background-image: url('~assets/hero.svg');
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: cover;

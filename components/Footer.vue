@@ -8,11 +8,15 @@
         <img src="https://abitcompany-cdn.sirv.com/abitcompany/abitlogo-small.png" alt="abitlogo" class="logo"/>
       </a> -->
       <div>&copy; 2018 abitindex</div>
+      <a class="email">hello@abitindex.com</a>
     </div>
   </footer>
 </template>
 <style lang="scss" scoped>
 @import '~/assets/styles/variables.scss';
+.email {
+  padding: 15px 0;
+}
 .footer {
   min-height: 20vh;
   display: flex;

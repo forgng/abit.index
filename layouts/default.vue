@@ -1,18 +1,17 @@
 <template>
-  <no-ssr>
     <div>
       <Header/>
       <main>
-        <nuxt/>
+        <no-ssr>
+          <nuxt/>
+        </no-ssr>
       </main>
       <Footer />
     </div>
-  </no-ssr>
 </template>
 
 <script>
 import { Header, Footer } from '~/components';
-import { mapState } from 'vuex';
 
 export default {
   components: {
