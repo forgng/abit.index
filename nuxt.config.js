@@ -4,6 +4,7 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/google-analytics',
     '@nuxtjs/dotenv',
+    '@nuxtjs/sitemap',
   ],
 
   axios: {
@@ -23,7 +24,13 @@ module.exports = {
   'google-analytics': {
     id: 'UA-117352627-4',
   },
-
+  sitemap: {
+    path: '/sitemap.xml',
+    hostname: 'https://abitindex.com',
+    cacheTime: 1000 * 60 * 15,
+    gzip: true,
+    generate: true, // Enable me when using nuxt generate
+  },
   /*
   ** Headers of the page
   */
