@@ -16,6 +16,7 @@
 @import '~/assets/styles/variables.scss';
 .email {
   padding: 15px 0;
+  color: $baseTextColorLight;
 }
 .footer {
   min-height: 20vh;
